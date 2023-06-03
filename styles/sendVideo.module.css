@@ -1,0 +1,41 @@
+.image {
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0px;
+    width: 100%;
+    z-index: -1;
+}
+
+.container {
+    position: absolute;
+    height: 100vh;
+    width: calc(100% - 60px);
+    margin-left: 60px;
+}
+
+
+.overlay {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.title {
+    font-size: 3rem;
+
+}
+
+.loggin {
+    color: white;
+    font-weight: bold;
+}
