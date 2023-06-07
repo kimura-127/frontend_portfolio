@@ -2,15 +2,15 @@ import styles from "../styles/showResult.module.css";
 import { useEffect, useState, useRef } from 'react';
 import axios from "axios";
 import { useRecoilValue } from "recoil";
-import { isLogginState } from "./atoms/isLogginState";
-import { userEmailState } from "./atoms/userEmailState";
-import { userIdState } from "./atoms/userIdState";
+import { isLogginState } from "atoms/isLogginState";
+import { userEmailState } from "atoms/userEmailState";
+import { userIdState } from "atoms/userIdState";
 import LoadingPage from "./components/loading";
 
 const ShowResultPage = () => {
     const [videoUrl, setVideoUrl] = useState("");
-    const [resultData, setResultData] = useState("");
-    const videoRef = useRef<HTMLVideoElement | null>(null);
+    const [videoHave, setVideoHave] = useState(true);
+    const [resultData, setResultData] = useState<number[]>([]);
     const isLoggin = useRecoilValue(isLogginState);
     const userEmail = useRecoilValue(userEmailState);
     const userId = useRecoilValue(userIdState);
@@ -18,20 +18,19 @@ const ShowResultPage = () => {
     useEffect(() => {
         const getUrl = async () => {
             await axios
-                .get('http://localhost:3000/getvideo#index', {
+                .get(`${process.env.NEXT_PUBLIC_BASE_URL}/getvideo#index`, {
                     params: {
                         userid: userId,
                         email: userEmail
                     }
                 })
                 .then((res) => {
-                    const url = res.data.url;
-                    // console.log(res);
-                    setVideoUrl(url)
-                    // if (url && videoRef.current) {
-                    //     // videoRef.current.src = url;
-                    //     // videoRef.current.load();
-                    // }
+                    if (res.data.status == 200) {
+                        const url = res.data.url;
+                        setVideoUrl(url);
+                    } else {
+                        setVideoHave(false);
+                    }
                 })
                 .catch((error) => {
                     console.log(error);
@@ -39,7 +38,7 @@ const ShowResultPage = () => {
         }
 
         const getResult = async () => {
-            await axios.get('http://localhost:3000/getresult#index'
+            await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/getresult#index`
                 , {
                     params: {
                         userid: userId,
@@ -49,7 +48,7 @@ const ShowResultPage = () => {
             )
                 .then((res) => {
                     const response = res.data.result
-                    const result = []
+                    const result: number[] = []
                     response.forEach((res: any) => {
                         if (res) {
                             const count = (res.match(/"displayName":"jab"/g) || []).length;
@@ -74,10 +73,12 @@ const ShowResultPage = () => {
             <div className={styles.container}>
                 <div className={styles.backgroundImage} />
                 {isLoggin ? (
-                    resultData.length == 0 && videoUrl.length == 0 ? (
-                        <div className={styles.loading}>
+                    videoUrl.length == 0 ? (
+                        (videoHave ? (<div className={styles.loading}>
                             <LoadingPage />
-                        </div>
+                        </div>) : (
+                            <h1 className={styles.nonVideo}>ビデオがありません</h1>
+                        ))
                     ) : (
                         <>
                             {Object.keys(videoUrl).map((url_key: any) => (<>

@@ -4,9 +4,9 @@ import axios from "axios";
 import styles from "../styles/login.module.css"
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
-import { isLogginState } from './atoms/isLogginState';
-import { userIdState } from "./atoms/userIdState";
-import { userEmailState } from "./atoms/userEmailState";
+import { isLogginState } from 'atoms/isLogginState';
+import { userIdState } from "atoms/userIdState";
+import { userEmailState } from "atoms/userEmailState";
 import Link from "next/link";
 
 
@@ -37,7 +37,7 @@ const LoginPage = () => {
         const login = async () => {
             // 認証リクエストを送信してアクセストークンを取得
             const authResponse = await axios.post(
-                'http://localhost:3000/auth',
+                `${process.env.NEXT_PUBLIC_BASE_URL}/auth`,
                 { email: emailAdress, password: pass },
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -54,7 +54,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (isLoggin) {
-            router.push("http://localhost:3001");
+            router.push("/");
         }
     }, [])
 
@@ -62,7 +62,7 @@ const LoginPage = () => {
         // トークンを送信してトークンの検証
         const jwt = async () => {
             if (token) {
-                await axios.get('http://localhost:3000/home', {
+                await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/home`, {
                     headers: { Authorization: `Bearer ${token}` },
                     withCredentials: true
                 })
@@ -84,7 +84,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (isLoggin) {
-            router.push("http://localhost:3001");
+            router.push("/");
         }
     }, [isLoggin])
 

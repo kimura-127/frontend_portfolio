@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import styles from "../../styles/Home.module.css";
 import Link from 'next/link'
 import { useRecoilValue } from "recoil";
-import { isLogginState } from "../atoms/isLogginState";
+import { isLogginState } from "atoms/isLogginState";
 
 const EarthPage = () => {
 
@@ -145,9 +145,9 @@ const EarthPage = () => {
                 <p className={styles.p}>
                     AIの力であなたのボクシングスキルを精密検査
                 </p>
-                <Link href="/about">
+                {/* <Link href="/about">
                     <button className={styles.button}>ゲストとして利用</button>
-                </Link>
+                </Link> */}
             </div>
             <canvas className={styles.canvas} id="canvas"></canvas>
         </>

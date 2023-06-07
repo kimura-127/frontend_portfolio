@@ -1,12 +1,11 @@
 import styles from "../styles/sendVideo.module.css";
 import Image from 'next/image'
 import axios from "axios";
-import Cookies from 'js-cookie';
 import { useForm } from "react-hook-form";
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { isLogginState } from './atoms/isLogginState';
-import { userIdState } from "./atoms/userIdState";
-import { userEmailState } from "./atoms/userEmailState";
+import { useRecoilValue } from 'recoil';
+import { isLogginState } from 'atoms/isLogginState';
+import { userIdState } from "atoms/userIdState";
+import { userEmailState } from "atoms/userEmailState";
 import { useEffect } from "react";
 
 
@@ -21,7 +20,7 @@ const SendVideoPage = () => {
         if (isLoggin) {
             const formData = new FormData();
             formData.append("video", data.video[0]);
-            const response = await axios.post("http://localhost:3000/sendanalyze#create",
+            await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/sendanalyze#create`,
                 formData, {
                 params: {
                     userid: userId,
