@@ -88,22 +88,26 @@ const LoginPage = () => {
         }
     }, [isLoggin])
 
+    const regi = () => {
+        router.push("/registration")
+    }
+
     return (
         <>
-            <form className={styles.login} onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label htmlFor="name">メールアドレス:</label>
-                    <input {...register('email', { required: true, pattern: /^\S+@\S+$/i })} />
-                    {errors.email && <span>名前を入力してください</span>}
-                </div>
-                <div>
-                    <label htmlFor="email">パスワード:</label>
-                    <input {...register('password', { required: true })} />
-                    {errors.password && <span>正しいメールアドレスを入力してください</span>}
-                </div>
-                <button type="submit">送信</button>
-            </form>
-            <Link className={styles.regi} href="/registration">新規会員登録</Link>
+            <div className={styles.container}>
+                <form className={styles.form} >
+                    <label htmlFor="name">メールアドレス</label>
+                    <input placeholder="メールアドレスを入力" {...register('email', { required: true, pattern: /^\S+@\S+$/i })} />
+                    {errors.email && <span>正しいメールアドレスを入力してください</span>}
+                    <label htmlFor="email">パスワード</label>
+                    <input className={styles.password} type="password" maxLength={12} placeholder="パスワードを入力" {...register('password', { required: true })} />
+                    {errors.password && <span>正しいパスワードを入力してください</span>}
+                    <button onClick={handleSubmit(onSubmit)} className={styles.submit} type="submit">送信</button>
+                </form>
+            </div>
+            <div className={styles.regiContainer}>
+                <button className={styles.regi} onClick={regi}>新規の方はこちらから!</button>
+            </div>
         </>
     )
 }

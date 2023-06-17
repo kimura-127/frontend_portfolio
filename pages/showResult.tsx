@@ -70,34 +70,31 @@ const ShowResultPage = () => {
 
     return (
         <>
-            <div className={styles.container}>
-                <div className={styles.backgroundImage} />
-                {isLoggin ? (
-                    videoUrl.length == 0 ? (
-                        (videoHave ? (<div className={styles.loading}>
-                            <LoadingPage />
-                        </div>) : (
-                            <h1 className={styles.nonVideo}>ビデオがありません</h1>
-                        ))
-                    ) : (
-                        <>
-                            {Object.keys(videoUrl).map((url_key: any) => (<>
-                                <div key={url_key} className={styles.resultContainer}>
-                                    <video src={videoUrl[url_key]} controls className={styles.video} />
-                                    <div className={styles.result} >
-                                        <header>ジャブの数</header>
-                                        <p>{resultData.length == 0 ? ("集計中") : (resultData[url_key])}</p>
-                                        <header>勝敗</header>
-                                        <p>ドロー</p>
-                                    </div>
-                                </div>
-                            </>))}
-                        </>
-                    )
+            <div className={styles.backgroundImage} />
+            {isLoggin ? (
+                videoUrl.length == 0 ? (
+                    (videoHave ? (<div className={styles.loading}>
+                        <LoadingPage />
+                    </div>) : (
+                        <h1 className={styles.nonVideo}>ビデオがありません</h1>
+                    ))
                 ) : (
-                    <p className={styles.loggin}>ログインしてください</p>
-                )}
-            </div>
+                    <>
+                        {Object.keys(videoUrl).map((url_key: any) => (<>
+                            <div key={url_key} className={styles.resultContainer}>
+                                <video src={videoUrl[url_key]} controls playsInline className={styles.video} />
+                                <div className={styles.result} >
+                                    <p>{resultData.length == 0 ? ("集計中") : resultData[url_key] == 0 ? ("あなたのジャブはパワー・スピード・キレのいずれかに問題があります、シャドーボクシングやミット打ちを行い問題点を発見し改善しましょう。") : ("あなたのジャブはパワー・スピード・キレともに優れております、このままの調子で努力を続ければ必ず勝利を掴み取ることができるでしょう。")}</p>
+                                </div>
+                            </div>
+                        </>))}
+                    </>
+                )
+            ) : (
+                <div className={styles.logginContainer}>
+                    <h1 className={styles.loggin}>ログインしてください</h1>
+                </div>
+            )}
         </>
     )
 

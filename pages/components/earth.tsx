@@ -24,14 +24,19 @@ const EarthPage = () => {
         const renderer = new THREE.WebGLRenderer({
             canvas: canvas || undefined,
         });
-        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // スマホの画面・PCの画面それぞれに対応したサイズで作成
+        if (window.innerWidth <= 1050) {
+            renderer.setSize(1050, 650)
+        } else {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
 
         // シーンを作成
         const scene = new THREE.Scene();
 
         // カメラを作成
         const camera = new THREE.PerspectiveCamera(45, width / height);
-        //   camera.position.z = 2000;
 
         // 球体作成
         const geometry = new THREE.SphereGeometry(300, 30, 30);
@@ -102,8 +107,8 @@ const EarthPage = () => {
             const radian = (rot * Math.PI) / 180; /* ラジアン変換 */
 
             /* 角度に応じてカメラの位置を変更 */
-            camera.position.x = 1000 * Math.sin(radian);
-            camera.position.z = 2000 * Math.cos(radian);
+            camera.position.x = 500 * Math.sin(radian);
+            camera.position.z = 1300 * Math.cos(radian);
 
             /* 原点方向を見つめる */
             camera.lookAt(new THREE.Vector3(0, 0, -400));

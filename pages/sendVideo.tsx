@@ -42,14 +42,18 @@ const SendVideoPage = () => {
             <Image className={styles.image} src="/images/sendVideo.jpg" alt="Image" width={1000} height={800} />
             <div className={styles.overlay} >
                 {isLoggin ? (
-                    <form className={styles.form} onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-                        <h1 className={styles.title}>Upload</h1>
-                        <label htmlFor="file-upload" className={styles.label}>
-                            Choose a file
-                            <input type="file" className={styles.input}  {...register("video")} />
-                        </label>
-                        <button type="submit" className={styles.button}>Upload</button>
-                    </form>
+                    <>
+                        <h1 className={styles.title}>アップロード</h1>
+                        <form className={styles.form} onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+                            <p>
+                                ファイルを選択してください
+                            </p>
+                            <label>
+                                <input type="file" className={styles.input}  {...register("video")} />ファイルを選択
+                            </label>
+                            <button type="submit" className={styles.button}>アップロード</button>
+                        </form>
+                    </>
                 ) : (
                     <h1 className={styles.loggin}>ログインしてください</h1>
                 )}

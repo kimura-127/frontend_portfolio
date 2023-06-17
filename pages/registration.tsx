@@ -89,19 +89,17 @@ const RegistrationPage = () => {
 
     return (
         <>
-            <form className={styles.login} onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label htmlFor="name">メールアドレス:</label>
-                    <input {...register('email', { required: true, pattern: /^\S+@\S+$/i })} />
-                    {errors.email && <span>名前を入力してください</span>}
-                </div>
-                <div>
-                    <label htmlFor="email">パスワード:</label>
-                    <input {...register('password', { required: true })} />
-                    {errors.password && <span>正しいメールアドレスを入力してください</span>}
-                </div>
-                <button type="submit">送信</button>
-            </form>
+            <div className={styles.container}>
+                <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+                    <label htmlFor="name">メールアドレス</label>
+                    <input placeholder="メールアドレスを入力" {...register('email', { required: true, pattern: /^\S+@\S+$/i })} />
+                    {errors.email && <span>正しいメールアドレスを入力してください</span>}
+                    <label htmlFor="email">パスワード</label>
+                    <input placeholder="パスワードを入力" maxLength={12} {...register('password', { required: true })} />
+                    {errors.password && <span>正しいパスワードを入力してください</span>}
+                    <button className={styles.submit} type="submit">登録</button>
+                </form>
+            </div>
         </>
     )
 }

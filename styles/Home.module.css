@@ -1,12 +1,8 @@
 .canvas {
-  width: 100%;
-  height: 100%;
   position: fixed;
   z-index: -1;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 
@@ -21,6 +17,7 @@
 
 .h1 {
   font-size: 70px;
+  font-weight: bold;
 }
 
 .p {
@@ -40,9 +37,20 @@
 }
 
 .button:hover {
-  /* transform: rotate(360deg); */
-  /* border: none; */
-  /* border: 2px solid #fff; */
-  /* border-color: #000000; */
   font-size: 1.5em;
+}
+
+@media (max-width: 768px) {
+  .canvas {
+    color: aliceblue;
+  }
+
+  .earth {
+    left: 55%;
+  }
+
+  .h1 {
+    text-align: initial;
+    font-size: 30px;
+  }
 }

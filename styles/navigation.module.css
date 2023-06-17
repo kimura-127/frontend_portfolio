@@ -1,5 +1,5 @@
 .navigation {
-    height: 100vh;
+    height: 100%;
     width: 58px;
     position: fixed;
     background-color: #4b4c86;
@@ -11,6 +11,7 @@
     top: 0px;
     left: 0px;
     z-index: 10;
+    transform: scale(1);
 }
 
 .navigation:hover {
@@ -43,29 +44,6 @@
     background-color: burlywood;
 }
 
-/* .navigation ul li.active::before {
-    content: "";
-    position: absolute;
-    background-color: blue;
-    width: 40px;
-    height: 20px;
-    top: -30px;
-    right: 0;
-    border-radius: 50%;
-    box-shadow: 15px 25px 0 burlywood;
-}
-
-.navigation ul li.active::after {
-    content: "";
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    top: 60px;
-    right: 0;
-    border-radius: 50%;
-    box-shadow: 15px -15px 0 rgb(48, 0, 0);
-} */
-
 .navigation ul li a {
     color: rgb(255, 255, 255);
     width: 100%;
@@ -89,4 +67,10 @@
     height: 60px;
     line-height: 60px;
 
+}
+
+@media (max-width: 768px) {
+    .navigation:hover {
+        width: 58px;
+    }
 }
