@@ -70,7 +70,7 @@ const ShowResultPage = () => {
 
     return (
         <div className={styles.allContainer}>
-            <div className={styles.backgroundImage} />
+            <h1 className={styles.header}>Result</h1>
             {isLoggin ? (
                 videoUrl.length == 0 ? (
                     (videoHave ? (<div className={styles.loading}>

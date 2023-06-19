@@ -80,8 +80,16 @@
         width: 58px;
     }
 
+    .navigation ul {
+        padding-top: 10vh;
+    }
+
+    .navigation ul li {
+        margin-top: 20px;
+    }
+
     .navigation ul li.active {
-        background-color: rgba(222, 184, 135, 0);
+        background-color: rgba(255, 255, 255, 0);
     }
 
     .navigation ul li:hover {

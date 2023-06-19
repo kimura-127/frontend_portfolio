@@ -47,13 +47,12 @@
 }
 
 .form label {
-    padding: 10px 40px;
+    padding: 2vw 1vw;
+    aspect-ratio: 5/1;
     color: #ffffff;
     background-color: #161b22;
     cursor: pointer;
-    border: 1px solid #21262d;
     border-radius: 5px;
-    width: 25vw;
     text-align: center;
 }
 
@@ -68,7 +67,7 @@
     cursor: pointer;
     border: 1px solid #21262d;
     border-radius: 5px;
-    width: 25vw;
+    aspect-ratio: 6/1;
     text-align: center;
 }
 
@@ -93,7 +92,7 @@
     }
 
     .form label {
-        width: 30vw;
+        padding: 3vw 2vw;
     }
 
     .form button {
