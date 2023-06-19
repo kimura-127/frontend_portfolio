@@ -83,7 +83,7 @@ const RegistrationPage = () => {
 
     useEffect(() => {
         if (isLoggin) {
-            router.push("/");
+            router.push("/sendVideo");
         }
     }, [isLoggin])
 

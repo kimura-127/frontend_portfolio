@@ -32,7 +32,7 @@ const SendVideoPage = () => {
     }
 
     useEffect(() => {
-
+        console.log(isLoggin)
     }, [])
 
 
@@ -55,7 +55,7 @@ const SendVideoPage = () => {
                         </form>
                     </>
                 ) : (
-                    <h1 className={styles.loggin}>ログインしてください</h1>
+                    <div />
                 )}
             </div>
         </div>

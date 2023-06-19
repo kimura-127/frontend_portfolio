@@ -7,7 +7,6 @@ import { useRecoilState } from 'recoil';
 import { isLogginState } from 'atoms/isLogginState';
 import { userIdState } from "atoms/userIdState";
 import { userEmailState } from "atoms/userEmailState";
-import Link from "next/link";
 
 
 const LoginPage = () => {
@@ -52,11 +51,11 @@ const LoginPage = () => {
         login();
     };
 
-    useEffect(() => {
-        if (isLoggin) {
-            router.push("/");
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (isLoggin) {
+    //         router.push("/");
+    //     }
+    // }, [])
 
     useEffect(() => {
         // トークンを送信してトークンの検証
@@ -84,7 +83,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (isLoggin) {
-            router.push("/");
+            router.push("/sendVideo")
         }
     }, [isLoggin])
 

@@ -93,9 +93,7 @@ const ShowResultPage = () => {
                     </>
                 )
             ) : (
-                <div className={styles.logginContainer}>
-                    <h1 className={styles.loggin}>ログインしてください</h1>
-                </div>
+                <div />
             )}
         </div>
     )
