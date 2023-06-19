@@ -70,7 +70,27 @@
 }
 
 @media (max-width: 768px) {
+    .navigation {
+        background-color: rgba(0, 0, 0, 0);
+        box-shadow: none;
+        border-left: none;
+    }
+
     .navigation:hover {
         width: 58px;
+    }
+
+    .navigation ul li.active {
+        background-color: rgba(222, 184, 135, 0);
+    }
+
+    .navigation ul li:hover {
+        background-color: #96969679;
+    }
+
+    .title {
+        padding-left: 30px;
+        height: 60px;
+        line-height: 60px;
     }
 }
