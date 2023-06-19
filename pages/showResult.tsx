@@ -69,7 +69,7 @@ const ShowResultPage = () => {
 
 
     return (
-        <>
+        <div className={styles.allContainer}>
             <div className={styles.backgroundImage} />
             {isLoggin ? (
                 videoUrl.length == 0 ? (
@@ -82,7 +82,9 @@ const ShowResultPage = () => {
                     <>
                         {Object.keys(videoUrl).map((url_key: any) => (<>
                             <div key={url_key} className={styles.resultContainer}>
-                                <video src={videoUrl[url_key]} controls playsInline className={styles.video} />
+                                <video controls playsInline >
+                                    <source src={videoUrl[url_key]} type="video/mp4" />
+                                </video>
                                 <div className={styles.result} >
                                     <p>{resultData.length == 0 ? ("集計中") : resultData[url_key] == 0 ? ("あなたのジャブはパワー・スピード・キレのいずれかに問題があります、シャドーボクシングやミット打ちを行い問題点を発見し改善しましょう。") : ("あなたのジャブはパワー・スピード・キレともに優れております、このままの調子で努力を続ければ必ず勝利を掴み取ることができるでしょう。")}</p>
                                 </div>
@@ -95,7 +97,7 @@ const ShowResultPage = () => {
                     <h1 className={styles.loggin}>ログインしてください</h1>
                 </div>
             )}
-        </>
+        </div>
     )
 
 }

@@ -6,6 +6,7 @@ import { MdVideoLibrary } from 'react-icons/md'
 import { useState } from 'react';
 import styles from "../styles/navigation.module.css";
 import { RecoilRoot } from 'recoil'
+import "../styles/globals.css"
 
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
