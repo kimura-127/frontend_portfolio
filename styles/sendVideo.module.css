@@ -100,6 +100,10 @@
 .form button {}
 
 @media (max-width:768px) {
+    .header {
+        margin-left: 20px;
+    }
+
     .form label {
         min-width: 215px;
         min-height: 44px;
