@@ -6,6 +6,7 @@ import { isLogginState } from "atoms/isLogginState";
 import { userEmailState } from "atoms/userEmailState";
 import { userIdState } from "atoms/userIdState";
 import LoadingPage from "./components/loading";
+import { useRouter } from "next/router";
 
 const ShowResultPage = () => {
     const [videoUrl, setVideoUrl] = useState("");
@@ -14,63 +15,68 @@ const ShowResultPage = () => {
     const isLoggin = useRecoilValue(isLogginState);
     const userEmail = useRecoilValue(userEmailState);
     const userId = useRecoilValue(userIdState);
+    const router = useRouter();
+
+    const getUrl = async () => {
+        await axios
+            .get(`${process.env.NEXT_PUBLIC_BASE_URL}/getvideo#index`, {
+                params: {
+                    userid: userId,
+                    email: userEmail
+                }
+            })
+            .then((res) => {
+                if (res.data.status == 200) {
+                    const url = res.data.url;
+                    setVideoUrl(url);
+                } else {
+                    setVideoHave(false);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const getResult = async () => {
+        await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/getresult#index`
+            , {
+                params: {
+                    userid: userId,
+                    email: userEmail
+                }
+            }
+        )
+            .then((res) => {
+                const response = res.data.result
+                const result: number[] = []
+                response.forEach((res: any) => {
+                    if (res) {
+                        const count = (res.match(/"displayName":"jab"/g) || []).length;
+                        result.push(count)
+                    }
+                })
+                setResultData(result)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     useEffect(() => {
-        const getUrl = async () => {
-            await axios
-                .get(`${process.env.NEXT_PUBLIC_BASE_URL}/getvideo#index`, {
-                    params: {
-                        userid: userId,
-                        email: userEmail
-                    }
-                })
-                .then((res) => {
-                    if (res.data.status == 200) {
-                        const url = res.data.url;
-                        setVideoUrl(url);
-                    } else {
-                        setVideoHave(false);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+        if (!isLoggin) {
+            router.push("/")
+        } else {
+            getUrl();
+            getResult();
         }
-
-        const getResult = async () => {
-            await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/getresult#index`
-                , {
-                    params: {
-                        userid: userId,
-                        email: userEmail
-                    }
-                }
-            )
-                .then((res) => {
-                    const response = res.data.result
-                    const result: number[] = []
-                    response.forEach((res: any) => {
-                        if (res) {
-                            const count = (res.match(/"displayName":"jab"/g) || []).length;
-                            result.push(count)
-                        }
-                    })
-                    setResultData(result)
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-
-        isLoggin && getUrl();
-        isLoggin && getResult();
     }, []);
 
 
 
     return (
         <div className={styles.allContainer}>
-            <h1 className={styles.header}>Result</h1>
+            <h1 className={styles.header}>分析結果</h1>
             {isLoggin ? (
                 videoUrl.length == 0 ? (
                     (videoHave ? (<div className={styles.loading}>

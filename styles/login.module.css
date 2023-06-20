@@ -98,13 +98,4 @@
     border: 2px solid #fff;
 }
 
-@media (max-width:600px) {
-    .container {
-        /* margin: initial; */
-        left: 9%;
-    }
-
-    .regiContainer {
-        left: 9%;
-    }
-}
+@media (max-width:600px) {}

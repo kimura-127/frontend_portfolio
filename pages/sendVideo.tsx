@@ -7,6 +7,7 @@ import { isLogginState } from 'atoms/isLogginState';
 import { userIdState } from "atoms/userIdState";
 import { userEmailState } from "atoms/userEmailState";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 
 
@@ -17,6 +18,7 @@ const SendVideoPage = () => {
     const userEmail = useRecoilValue(userEmailState);
     const [videoName, setVideoName] = useState("")
     const inputVideoData = watch("video")
+    const router = useRouter();
 
     const onSubmit = async (data: any) => {
         if (isLoggin) {
@@ -34,11 +36,13 @@ const SendVideoPage = () => {
     }
 
     useEffect(() => {
-        console.log(isLoggin)
+        if (!isLoggin) {
+            router.push("/")
+        }
     }, [])
 
     useEffect(() => {
-        if (inputVideoData) {
+        if (inputVideoData && inputVideoData.length > 0) {
             setVideoName(inputVideoData[0].name)
         }
     }, [inputVideoData])
@@ -49,7 +53,7 @@ const SendVideoPage = () => {
     return (<>
         <div className={styles.container}>
             <Image className={styles.image} src="/images/sendVideo.jpg" alt="Image" width={1000} height={800} />
-            <h1 className={styles.header}>Upload</h1>
+            <h1 className={styles.header}>動画を分析する</h1>
             <div className={styles.overlay} >
                 {isLoggin ? (
                     <>
