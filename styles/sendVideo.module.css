@@ -76,7 +76,7 @@
     border: 2px solid #fff;
 }
 
-.form button {
+.button {
     position: absolute;
     padding: 2vw 8vw;
     color: #ffffff;
@@ -92,12 +92,31 @@
     margin-left: 40px;
 }
 
-.form button:hover {
-    border: 2px solid #fff;
+.missbutton {
+    position: absolute;
+    padding: 2vw 8vw;
+    color: #ffffff;
+    background-color: #238636;
+    cursor: pointer;
+    border: 1px solid #21262d;
+    border-radius: 5px;
+    /* aspect-ratio: 6/1; */
+    text-align: center;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    margin-left: 40px;
 }
 
 
-.form button {}
+.button:hover {
+    border: 2px solid #fff;
+}
+
+.missbutton:hover {
+    border: 2px solid #ff0000;
+}
+
 
 @media (max-width:768px) {
     .header {
