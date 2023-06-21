@@ -31,6 +31,11 @@ const SendVideoPage = () => {
     }
     // データに異常がある状態でアップロードを押した時に使う
     const [missingAppload, setMissingAppload] = useState(false)
+    // 動画データの容量を制限する時に使用
+    const [missingDataCapacity, setMissingDataCapacity] = useState(false)
+
+
+
 
     // アップロードボタンをクリックした時の処理
     const onSubmit = async (data: any) => {
@@ -64,18 +69,31 @@ const SendVideoPage = () => {
     useEffect(() => {
         if (inputVideoData && inputVideoData.length > 0) {
             const videoDataName = inputVideoData[0].name
+            const videoSize = inputVideoData[0].size
+            const capacitySize = 30000000
             // データの拡張子を以下の内容で点検
             const testInputData = /mov$|mp4$|avi$|wmv$|mkv$|flv$|webm$|m4v$|mpeg$|3gp$/;
             // 動画であるかどうかチェック
             const result = testInputData.test(videoDataName)
             if (result) {
-                setInputDataValue(true)
-                setVideoName(videoDataName)
+                if (videoSize <= capacitySize) {
+                    // 動画である && 容量が適正
+                    setInputDataValue(true)
+                    setMissingAppload(false)
+                    setVideoName(videoDataName)
+                } else {
+                    // 動画であるが容量が大きすぎる時の処理,inputをリセットし表示を少し変更
+                    formReset();
+                    setInputDataValue(false)
+                    setMissingAppload(true)
+                    setMissingDataCapacity(true)
+                }
             } else {
-                // falseならフォームリセット
+                // 動画以外が選択された時の処理
                 formReset();
                 setInputDataValue(false)
-
+                setMissingAppload(true)
+                setMissingDataCapacity(false)
             }
         }
     }, [inputVideoData])
@@ -94,7 +112,7 @@ const SendVideoPage = () => {
                             <p>
                                 {inputDataValue ? (
                                     videoName ? (videoName + "が選択されています") : ("ファイルが選択されていません")
-                                ) : ("動画以外はアップロードできません")}
+                                ) : (missingDataCapacity ? ("動画の容量が大きすぎます") : ("動画以外はアップロードできません"))}
                             </p>
                             <label>
                                 <input type="file" className={styles.input}  {...register("video")} />ファイルを選択
