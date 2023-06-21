@@ -1,16 +1,8 @@
 import { useEffect } from "react";
 import * as THREE from 'three';
-import styles from "../../styles/Home.module.css";
-import Link from 'next/link'
-import { useRecoilValue } from "recoil";
-import { isLogginState } from "atoms/isLogginState";
+import styles from "../../styles/earth.module.css";
 
 const EarthPage = () => {
-
-    const isLoggin = useRecoilValue(isLogginState);
-    const logout = () => {
-        window.location.href = "/"
-    }
     let canvas: HTMLElement
 
     useEffect(() => {
@@ -139,20 +131,6 @@ const EarthPage = () => {
     return (
         <>
             <div className={styles.earth}>
-                <h1 className={styles.h1}>analyzeBoxing</h1>
-                {isLoggin ? (
-                    <button onClick={logout} className={styles.button}>ログアウト</button>
-                ) : (
-                    <Link href="/login">
-                        <button className={styles.button}>ログイン</button>
-                    </Link>
-                )}
-                <p className={styles.p}>
-                    AIの力であなたのボクシングスキルを精密検査
-                </p>
-                {/* <Link href="/about">
-                    <button className={styles.button}>ゲストとして利用</button>
-                </Link> */}
             </div>
             <canvas className={styles.canvas} id="canvas"></canvas>
         </>

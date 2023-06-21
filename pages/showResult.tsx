@@ -9,14 +9,18 @@ import LoadingPage from "./components/loading";
 import { useRouter } from "next/router";
 
 const ShowResultPage = () => {
+    // 各Stateを宣言
     const [videoUrl, setVideoUrl] = useState("");
     const [videoHave, setVideoHave] = useState(true);
     const [resultData, setResultData] = useState<number[]>([]);
+    // Recoil宣言
     const isLoggin = useRecoilValue(isLogginState);
     const userEmail = useRecoilValue(userEmailState);
     const userId = useRecoilValue(userIdState);
+    // routerのインスタンス化
     const router = useRouter();
 
+    // 動画データの著名付きurlを取得する関数
     const getUrl = async () => {
         await axios
             .get(`${process.env.NEXT_PUBLIC_BASE_URL}/getvideo#index`, {
@@ -38,6 +42,7 @@ const ShowResultPage = () => {
             });
     }
 
+    // 分析結果取得の関数
     const getResult = async () => {
         await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/getresult#index`
             , {
@@ -63,6 +68,7 @@ const ShowResultPage = () => {
             });
     }
 
+    // ログインしていた場合動画データと分析結果を取得
     useEffect(() => {
         if (!isLoggin) {
             router.push("/")

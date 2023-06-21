@@ -11,82 +11,87 @@ import { userEmailState } from "atoms/userEmailState";
 
 const LoginPage = () => {
     const [token, setToken] = useState("");
+    // Recoil宣言、使用していない変数があるがsetするために仕方なく定義
     const [isLoggin, setIsLoggin] = useRecoilState(isLogginState);
     const [userId, setUserId] = useRecoilState(userIdState);
     const [userEmail, setUserEmail] = useRecoilState(userEmailState);
+    // useRouterをインスタンス化
     const router = useRouter();
 
+    // ログインする時の関数
     const handleLogin = () => {
         setIsLoggin(true);
     };
 
+    // フォームのデータに型付け
     type FormData = {
         email: string;
         password: string;
     };
 
+    // useFormで使用する関数
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-    const onSubmit = (data: FormData) => {
+    // ログインの際呼び出す関数
+    const login = async (data: any) => {
         const emailAdress = data.email;
         const pass = data.password;
+        // 認証リクエストを送信してアクセストークンを取得
+        const authResponse = await axios.post(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/auth`,
+            { email: emailAdress, password: pass },
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            }
+        );
+        // Recoilに格納
+        setUserEmail(emailAdress);
+        setUserId(authResponse.data.id);
+        setToken(authResponse.data.accessToken);
+    }
 
-
-
-        const login = async () => {
-            // 認証リクエストを送信してアクセストークンを取得
-            const authResponse = await axios.post(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/auth`,
-                { email: emailAdress, password: pass },
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            setUserEmail(emailAdress);
-            setUserId(authResponse.data.id);
-            setToken(authResponse.data.accessToken);
-        }
-
-        login();
+    // フォームのボタンをクリックした時の処理
+    const onSubmit = (data: FormData) => {
+        // ログイン処理
+        login(data);
     };
 
-    // useEffect(() => {
-    //     if (isLoggin) {
-    //         router.push("/");
-    //     }
-    // }, [])
+    // トークンを送信しトークンの検証する関数
+    const jwt = async () => {
+        if (token) {
+            await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/home`, {
+                headers: { Authorization: `Bearer ${token}` },
+                withCredentials: true
+            })
+                // 成功したらルーティング
+                .then((res) => {
+                    if (res.data.status == 200) {
+                        handleLogin();
+                    }
+                })
+                // 失敗したらエラー表示
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    }
 
     useEffect(() => {
-        // トークンを送信してトークンの検証
-        const jwt = async () => {
-            if (token) {
-                await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/home`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                    withCredentials: true
-                })
-                    // 成功したらルーティング
-                    .then((res) => {
-                        if (res.data.status == 200) {
-                            handleLogin();
-                        }
-                    })
-                    // 失敗したらエラー表示
-                    .catch((error) => {
-                        console.log(error)
-                    })
-            }
+        if (token && token.length > 0) {
+            // トークンを取得したらそれをここで検証
+            jwt();
         }
-
-        jwt();
     }, [token])
 
     useEffect(() => {
+        // ログインに成功したらアップロード画面にルーティング
         if (isLoggin) {
             router.push("/sendVideo")
         }
     }, [isLoggin])
 
+    // 新規登録画面に転移する関数
     const regi = () => {
         router.push("/registration")
     }

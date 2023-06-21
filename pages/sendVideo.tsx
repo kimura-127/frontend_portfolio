@@ -12,18 +12,25 @@ import { useRouter } from "next/router";
 
 
 const SendVideoPage = () => {
+    // フォームで使用する関数
     const { register, handleSubmit, watch } = useForm();
+    const inputVideoData = watch("video")
+    // Recoil宣言
     const isLoggin = useRecoilValue(isLogginState);
     const userId = useRecoilValue(userIdState);
     const userEmail = useRecoilValue(userEmailState);
+    // フォームを選択したら動画の名前を表示するため使用
     const [videoName, setVideoName] = useState("")
-    const inputVideoData = watch("video")
+    // useRouterを宣言
     const router = useRouter();
 
+    // アップロードボタンをクリックした時の処理
     const onSubmit = async (data: any) => {
         if (isLoggin) {
             const formData = new FormData();
+            // 動画データをアペンド
             formData.append("video", data.video[0]);
+            // バックエンドへ
             await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/sendanalyze#create`,
                 formData, {
                 params: {
@@ -35,12 +42,14 @@ const SendVideoPage = () => {
         }
     }
 
+    // ログインしていなかったらホーム画面へ
     useEffect(() => {
         if (!isLoggin) {
             router.push("/")
         }
     }, [])
 
+    // フォームのinput要素が変更されたらvideoNameをセット
     useEffect(() => {
         if (inputVideoData && inputVideoData.length > 0) {
             setVideoName(inputVideoData[0].name)
