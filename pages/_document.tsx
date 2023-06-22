@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang="ja">
       <Head>
+        <title>AnalyzeBoxing</title>
       </Head>
       <body>
         <Main />

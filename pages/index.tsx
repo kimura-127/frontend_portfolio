@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <EarthPage />
       <div className={styles.container}>
-        <h1 className={styles.h1}>analyzeBoxing</h1>
+        <h1 className={styles.h1}>AnalyzeBoxing</h1>
         <Link href="/login">
           <button className={styles.button}>ログイン</button>
         </Link>
