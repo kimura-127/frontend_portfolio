@@ -78,6 +78,16 @@ const ShowResultPage = () => {
         }
     }, []);
 
+    // 動画削除の処理
+    // const handleDestroy = async (url_key: any) => {
+    //     console.log(url_key)
+
+    //     await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/getvideo#destroy/:0`)
+    //         .then((res) => {
+    //             console.log(res)
+    //         })
+    // }
+
 
 
     return (
@@ -98,6 +108,7 @@ const ShowResultPage = () => {
                                     <source src={videoUrl[url_key]} type="video/mp4" />
                                 </video>
                                 <div className={styles.result} >
+                                    {/* <button onClick={() => handleDestroy(url_key)}>削除</button> */}
                                     <p>{resultData.length == 0 ? ("集計中") : resultData[url_key] == 0 ? ("あなたのジャブはパワー・スピード・キレのいずれかに問題があります、シャドーボクシングやミット打ちを行い問題点を発見し改善しましょう。") : ("あなたのジャブはパワー・スピード・キレともに優れております、このままの調子で努力を続ければ必ず勝利を掴み取ることができるでしょう。")}</p>
                                 </div>
                             </div>

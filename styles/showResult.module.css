@@ -59,6 +59,14 @@
     justify-content: center;
 }
 
+.result button {
+    position: absolute;
+    left: 15vw;
+    background-color: #135816;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+}
+
 
 .result p {
     font-weight: bold;
