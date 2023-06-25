@@ -1,0 +1,127 @@
+.container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+.img {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    background-image: url(../public/images/toppage.jpg);
+    background-size: cover;
+    z-index: -2;
+}
+
+.container::after {
+    content: "";
+    background-color: rgb(0, 0, 0);
+    opacity: 0.7;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: -1;
+}
+
+.container h1 {
+    margin-top: 0;
+    padding: 2% 20px 25px 5%;
+    color: aliceblue;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    cursor: pointer;
+}
+
+.container h1 span {
+    color: orangered;
+}
+
+.ul {
+    display: flex;
+    list-style: none;
+    color: aliceblue;
+    justify-content: space-evenly;
+    height: 5vh;
+    width: 100%;
+    position: relative;
+}
+
+.li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.li:hover {
+    color: orangered;
+}
+
+.li:active {
+    color: orangered;
+}
+
+.language {
+    border: 2px solid red;
+    position: relative;
+    z-index: 10;
+}
+
+.menu {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    bottom: 0;
+    transform: translateY(100px);
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+}
+
+.language button {
+    background-color: black;
+}
+
+.icon {
+    color: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menuUl {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu li {
+    color: black;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid black; */
+    width: 100%;
+}
+
+.menu li:hover {
+    background-color: darkgray;
+    border-radius: 5px;
+}
+
+.overley {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(50, 50, 50);
+    opacity: 0.7;
+    z-index: -1;
+}

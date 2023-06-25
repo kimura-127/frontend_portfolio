@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <>
       {/* ナビゲーションを表示する画面を制限 */}
-      {router.pathname === '/' || router.pathname === "/login" || router.pathname === "/registration" ?
+      {router.pathname === '/' || router.pathname === "/login" || router.pathname === "/registration" || router.pathname === "/about" ?
         (<div />) : (<Navigation />)
       }
       {/* Recoilを使用するため */}

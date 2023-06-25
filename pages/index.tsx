@@ -3,9 +3,7 @@ import Link from 'next/link'
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const handleGuest = () => {
 
-  }
 
   return (
     <>
@@ -15,7 +13,9 @@ export default function Home() {
         <Link href="/login">
           <button className={styles.button}>ログイン</button>
         </Link>
-        <button onClick={handleGuest} className={styles.button}>ゲスト</button>
+        <Link href="/about">
+          <button className={styles.button}>ゲスト</button>
+        </Link>
         <p className={styles.p}>
           AIの力であなたのボクシングスキルを精密検査
         </p>
